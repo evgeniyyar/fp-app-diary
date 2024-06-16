@@ -58,6 +58,6 @@ while True:
     else:
         print("Команда не верна.")
 print("Bye!")
-
+print("hi")
 
 
