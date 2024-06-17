@@ -59,5 +59,5 @@ while True:
         print("Команда не верна.")
 print("Bye!")
 print("hi")
-
+1
 
