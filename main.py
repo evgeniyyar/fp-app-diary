@@ -57,8 +57,3 @@ while True:
         break
     else:
         print("Команда не верна.")
-print("Bye!")
-print("hi")
-1
-
-
