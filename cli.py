@@ -58,3 +58,4 @@ while True:
         break
     else:
         print("Команда не верна.")
+print("hello")
