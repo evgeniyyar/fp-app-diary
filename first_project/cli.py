@@ -12,7 +12,7 @@ while True:
 
         todos.append(todo)
 
-        functions.write_todos(todos_local=todos, filepath="todos.txt")
+        functions.write_todos(todos_local=todos,filepath="todos.txt")
 
     elif user_action.startswith("show"):
 
@@ -35,7 +35,7 @@ while True:
             new_todo = input("Enter a new todo: ") + '\n'
             todos[number] = new_todo
 
-            functions.write_todos(todos_local=todos, filepath="todos.txt")
+            functions.write_todos(todos_local=todos,filepath="todos.txt")
         except ValueError:
             print("Команда не верна")
 
@@ -47,7 +47,7 @@ while True:
             todo_to_remove = todos[number - 1].strip('\n')
             todos.pop(number - 1)
 
-            functions.write_todos(todos_local=todos, filepath="todos.txt")
+            functions.write_todos(todos_local=todos,filepath="todos.txt")
 
             messages = f"Действие '{todo_to_remove}' выполнено и удалено"
             print(messages)
