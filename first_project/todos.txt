@@ -1,6 +1,3 @@
-asa
-qwe
-zxc
-
-qqq
-123
+QWE
+ZXC
+ASA
