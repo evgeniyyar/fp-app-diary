@@ -1,6 +1,9 @@
 import functions
 import PySimpleGUI
+import time
 
+PySimpleGUI.theme("Default 1")
+clock = PySimpleGUI.Text('', key="clock")
 label = PySimpleGUI.Text("Type in a to-do")
 input_box = PySimpleGUI.InputText(tooltip="Enter todo", key="todo")
 button_add = PySimpleGUI.Button("Add")
@@ -12,12 +15,15 @@ button_complete = PySimpleGUI.Button("Complete")
 button_exit = PySimpleGUI.Button("Exit")
 
 window = PySimpleGUI.Window('My To-Do App',
-                            layout=[[label, input_box, button_add],
-                                    [list_box, button_edit, button_complete, button_exit]],
+                            layout=[[clock],
+                                    [label, input_box, button_add],
+                                    [list_box, button_edit, button_complete,
+                                     button_exit]],
                             font=('Italic', 14))
 
 while True:
-    event, values = window.read()
+    event, values = window.read(timeout=10000)
+    window['clock'].update(value=time.strftime("%c"))
     print("событие:", event)
     print(type(event))
     print("значение", values)
@@ -31,24 +37,32 @@ while True:
             window['todos'].update(values=todos)
 
         case 'Edit':
-            todo_to_edit = values['todos'][0]
-            new_todo = values['todo'] + "\n"
+            try:
+                todo_to_edit = values['todos'][0]
+                new_todo = values['todo'] + "\n"
 
-            todos = functions.read_todos()
-            index = todos.index(todo_to_edit)
-            todos[index] = new_todo
-            functions.write_todos(todos)
-            window['todos'].update(values=todos)
+                todos = functions.read_todos()
+                index = todos.index(todo_to_edit)
+                todos[index] = new_todo
+                functions.write_todos(todos)
+                window['todos'].update(values=todos)
+            except IndexError:
+                PySimpleGUI.popup("Укажи значение, которое хочешь изменить",
+                                  title='Ошибка редактирования')
 
         case 'Complete':
-            todo_to_complete = values['todos'][0]
+            try:
+                todo_to_complete = values['todos'][0]
 
-            todos = functions.read_todos()
-            #index = todos.index(todo_to_complete)
-            todos.remove(todo_to_complete)
-            functions.write_todos(todos)
-            window['todos'].update(values=todos)
-            window['todo'].update(value='')
+                todos = functions.read_todos()
+                #index = todos.index(todo_to_complete)
+                todos.remove(todo_to_complete)
+                functions.write_todos(todos)
+                window['todos'].update(values=todos)
+                window['todo'].update(value='')
+            except IndexError:
+                PySimpleGUI.popup("Укажи значение, которое хочешь выполнить",
+                              title='Ошибка при выполнении')
 
         case 'todos':
             window['todo'].update(value=values['todos'][0].strip('\n'))
