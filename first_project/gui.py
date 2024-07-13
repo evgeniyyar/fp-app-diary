@@ -1,6 +1,12 @@
 import functions
 import PySimpleGUI
 import time
+import os
+
+
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
 
 PySimpleGUI.theme("Default 1")
 clock = PySimpleGUI.Text('', key="clock")
@@ -71,6 +77,9 @@ while True:
             break
 
         case 'Exit':
-            break
+            try:
+                break
+            except KeyboardInterrupt:
+                break
 
 window.close()

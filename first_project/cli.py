@@ -12,7 +12,7 @@ while True:
 
         todos.append(todo)
 
-        functions.write_todos(todos_local=todos,filepath="todos.txt")
+        functions.write_todos(todos_local=todos, filepath="todos.txt")
 
     elif user_action.startswith("show"):
 
